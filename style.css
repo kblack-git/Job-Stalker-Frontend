@@ -52,6 +52,14 @@ body {
   background-blend-mode: overlay, multiply, color, normal;
 }
 
+header {
+  background: rgb(25, 0, 255);
+  width: 86%;
+  height: 70px;
+  text-align: center;
+ 
+}
+
 ul {
   list-style-type: none;
   padding: 0;
