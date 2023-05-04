@@ -20,7 +20,7 @@
   --tag-color-text-four: #a0a6b5;
   --checkbox-color: #009e90;
   --button-color: #49beb7;
-  --box-color: #fff1d6;
+  --box-color: #ded6ff;
   --box-color-2: #d3e6ff;
   --box-color-3: #ffd9d9;
   --box-color-4: #daffe5;
@@ -52,11 +52,10 @@ body {
   background-blend-mode: overlay, multiply, color, normal;
 }
 
-header {
-  background: rgb(25, 0, 255);
-  width: 86%;
-  height: 70px;
-  text-align: center;
+logo{
+  display: flex;
+  flex-direction: row;
+  align-self: center;
 }
 
 
@@ -73,7 +72,7 @@ ul {
   max-width: 1200px;
   height: 90vh;
   max-height: 900px;
-  background: #fff;
+  background: #ffffff;
   border-radius: 4px;
   box-shadow: 0 0.3px 2.2px rgba(0, 0, 0, 0.011), 0 0.7px 5.3px rgba(0, 0, 0, 0.016),
     0 1.3px 10px rgba(0, 0, 0, 0.02), 0 2.2px 17.9px rgba(0, 0, 0, 0.024),
