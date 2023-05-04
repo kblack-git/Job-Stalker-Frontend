@@ -47,8 +47,8 @@ body {
       rgba(49, 146, 170, 0.07944489965716128) 86%,
       rgba(239, 112, 138, 0.5) 40%
     ),
-    linear-gradient(30deg, rgba(76, 79, 173, 0.6173675716587805) 22%, rgba(237, 106, 134, 0.5) 169%),
-    linear-gradient(48deg, rgba(31, 85, 147, 0.7323890641868473) 64%, rgba(247, 126, 132, 0.5) 43%);
+    linear-gradient(30deg, rgba(173, 2, 2, 0.617) 22%, rgba(26, 10, 161, 0.5) 169%),
+    linear-gradient(48deg, rgba(188, 2, 2, 0.732) 64%, rgba(14, 1, 116, 0.5) 43%);
   background-blend-mode: overlay, multiply, color, normal;
 }
 
@@ -59,9 +59,7 @@ header {
   text-align: center;
 }
 
-button {
-  
-}
+
 
 ul {
   list-style-type: none;
