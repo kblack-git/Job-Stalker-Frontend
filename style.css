@@ -530,12 +530,12 @@ body {
 
 @media screen and (max-width: 768px) {
 	#sidebar {
-		width: 200px;
+		width: 50px;
 	}
 
 	#content {
 		width: calc(100% - 60px);
-		left: 200px;
+		left: 50px;
 	}
 
 	#content nav .nav-link {
@@ -592,3 +592,5 @@ body {
 		min-width: 420px;
 	}
 }
+
+
