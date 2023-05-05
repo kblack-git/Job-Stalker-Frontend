@@ -1,125 +1,132 @@
-*{
+* {
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    color: #303433;
 }
 
 body {
-    background-image: linear-gradient(lime, green, yellow);
-}
-
-header {
-    background-color: yellow;
-    height: 50px;
-    text-align: center;
-}
-
-.hero {
-    height: 100%;
+    min-height: 100vh;
     width: 100%;
-    background-image: linear-gradient(rgba(0,0,0,0,4), rgba(0,0,0,0,4)), url("images/8phWXR.jpg");
-    background-position: center;
-    background-size: cover;
-    position: absolute;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
-.form-box {
-    width: 380px;
-    height: 480px;
-    position: relative;
-    margin: 6% auto;
-    background: #fff;
-    padding: 5px;
-    overflow: hidden;
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.button-box {
-    width: 220px;
-    margin: 35px auto;
-    position: relative;
-    box-shadow: 0 0 20px 9px #ff61241f;
-    border-radius: 30px;
+section.side {
+    background: url(./images/background.avif) no-repeat;
+    background-size: 100% 102%;
 }
 
-.toggle-btn {
-    padding: 10px 30px;
-    cursor: pointer;
-    background: transparent;
-    border: 0;
-    outline: none;
-    position: relative;
+.side img {
+    width: 50%;
+    max-width: 50%;
 }
 
-#btn {
-    top: 0;
-    left: 0;
-    position: absolute;
-    width: 110px;
-    height: 100%;
-    background: linear-gradient(to right, yellow, lime);
-    border-radius: 30px;
-    transition: 0.5s;
+.login-container {
+    max-width: 450px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.social-icons {
-    margin: 30px auto;
+.title {
+    text-transform: uppercase;
+    font-size: 3em;
+    font-weight: bold;
     text-align: center;
+    letter-spacing: 1px;
 }
 
-/* .social-icons img {
-    width: 30px;
-    margin: 0 12px;
-    box-shadow: royalblue;
-    cursor: pointer;
-    border-radius: 50%;
-} */
-
-.input-group {
-    top: 180px;
-    position: absolute;
-    width: 280px;
-    transition: 0.5s;
+.separator {
+    width: 150px;
+    height: 4px;
+    background-color: #9d0303;
+    margin: 24px;
 }
 
-.input-field {
+.welcome-message {
+    text-align: center;
+    font-size: 1.1em;
+    line-height: 28px;
+    margin-bottom: 30px;
+    color: #696969;
+}
+
+.login-form {
     width: 100%;
-    padding: 10px 0;
-    margin: 5px;
-    border-left: 0;
-    border-top: 0;
-    border-right: 0;
-    border-bottom: 1px solid greenyellow;
-    outline: none;
-    background: transparent;
+    display: flex;
+    flex-direction: column;
 }
 
-.submit-btn {
-    width: 85%;
-    padding: 10px 30px;
-    cursor: pointer;
-    display: block;
-    margin: auto;
-    background: linear-gradient(to right, yellow, lime);
-    border: 0;
+.form-control {
+    width: 100%;
+    position: relative;
+    margin-bottom: 24px;
+}
+
+input,
+button {
+    border: none;
     outline: none;
     border-radius: 30px;
+    font-size: 1.1em;
 }
 
-.check-box {
-    margin: 30px 10px 30px 0;
+input {
+    width: 100%;
+    background: #e6e6e6;
+    color: #333;
+    letter-spacing: 0.5px;
+    padding: 14px 64px;
 }
 
-span {
-    color: blue;
-    font-size: 12px;
-    bottom: 68px;
+input ~ i {
     position: absolute;
+    left: 32px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+    transition: color   0.4s;
 }
 
-#login {
-    left: 50px;
+input:focus ~ i {
+    color: #9a0303;
 }
 
-#register {
-    left: 450px;
+button.submit {
+    color: #fff;
+    padding: 14px 64px;
+    margin: 32px auto;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    background-image: linear-gradient(to right, #980202, #000609);
+    cursor: pointer;
+    transition: opacity 0.4s;
+}
+
+button.submit:hover {
+    opacity: 0.9;
+}
+
+/* ----  Responsiveness   ----  */
+@media (max-width: 780px) {
+
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .side {
+        display: none;
+    }
 }
