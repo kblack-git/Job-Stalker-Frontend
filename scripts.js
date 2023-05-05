@@ -118,11 +118,11 @@ messageItem.forEach(element => {
         return;
     uniqueContact.push(element.name);
 
-    followUpBox.innerHTML+=`
-    <div class="task">
-    ${element.name}
-    ${daysBetween(element.date)}
-    <button id="btn-${index}">Delete<button>
-    </div>`;
-    
+    followUpBox.innerHTML+=
+    `
+    <li class="completed">
+        <p>Contacted ${element.name} ${daysBetween(element.date)} days ago</p>
+        <i class='bx bx-dots-vertical-rounded' ></i>
+    </li>`;
+    //<button id="btn-${index}">Delete</button>
 });
