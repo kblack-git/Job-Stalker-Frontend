@@ -82,7 +82,7 @@ let messageItem=JSON.parse(messageJSON);
 messageItem?null:messageItem=[];
 
 let messageCount=document.querySelector('.message-count');
-messageCount.innerHTML=messageItem.length-1;
+messageCount.innerHTML=messageItem.length;
 
 let daysBetween=(start, end)=>{
     let difference=(Date.now())-Date.parse(start);
