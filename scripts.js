@@ -79,21 +79,50 @@ switchMode.addEventListener('change', function () {
 
 
 let messageBox=document.querySelector('.log-wrapper');
+messageBox.innerHTML='';
+
+let followUpBox=document.querySelector('.follow-wrapper')
+followUpBox.innerHTML=''
 
 let messageJSON=localStorage.getItem('messageItem');
 let messageItem=JSON.parse(messageJSON);
 
 messageItem?null:messageItem=[];
 
+let daysBetween=(start, end)=>{
+    let difference=(end?end.getTime():Date.now())-start.getTime();
+    let diffDays=difference/(86400000)
+    return diffDays;
+}
+
+let cancelledListJSON=localStorage.getItem('cancelledItem')
+cancelledItem=JSON.parse(cancelledListJSON);
+cancelledItem?null:cancelledItem=[];
+
+let uniqueContact=cancelledItem;
+
+//builds out the list
 messageItem.forEach(element => {
+    let index=messageItem.indexOf(element);
     messageBox.innerHTML+=`
     <div class="task">
-            <input class="task-item" name="task" type="checkbox" id="item-1" checked />
-            <label for="item-1">
-                <span class="label-text">blah blah blah</span>
-            </label>
-        <span class="tag approved">Sent</span>
+    ${element.name}
+    ${element.method}
+    ${element.content}
+    ${element.date}
     </div>`;
-});
+    
+    if(daysBetween(element.date)<7)
+        return;
+    if(uniqueContact.includes(element.name))
+        return;
+    uniqueContact.push(element.name);
 
-main
+    followUpBox.innerHTML+=`
+    <div class="task">
+    ${element.name}
+    ${daysBetween(element.date)}
+    <button id="btn-${index}">Delete<button>
+    </div>`;
+    
+});
