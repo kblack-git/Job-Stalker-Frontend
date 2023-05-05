@@ -67,6 +67,8 @@ switchMode.addEventListener('change', function () {
 })
 
 
+let uniqueContact=[];
+
 let messageBox=document.querySelector('.message-box');
 messageBox.innerHTML='';
 
@@ -79,9 +81,9 @@ let messageItem=JSON.parse(messageJSON);
 messageItem?null:messageItem=[];
 
 let daysBetween=(start, end)=>{
-    let difference=(end?end.getTime():Date.now())-start.getTime();
+    let difference=(Date.now())-Date.parse(start);
     let diffDays=difference/(86400000)
-    return diffDays;
+    return Math.floor(diffDays);
 }
 
 let cancelledListJSON=localStorage.getItem('cancelledItem')
@@ -95,13 +97,17 @@ cancelledItem.forEach(item=>{
 //builds out the list
 messageItem.forEach(element => {
     let index=messageItem.indexOf(element);
-    messageBox.innerHTML+=`
-    <div class="task">
-    ${element.name}
-    ${element.method}
-    ${element.content}
-    ${element.date}
-    </div>`;
+    messageBox.innerHTML+=
+    `
+    <tr class="message-entry">
+		<td>
+            <p>${element.name}</p>
+        </td>
+        <td>${element.method}</td>
+        <td>${element.message}</td>
+        <td><span class="Entry Date">${element.date}</span></td>
+    </tr>
+    `;
     
     if(daysBetween(element.date)<7)
         return;
