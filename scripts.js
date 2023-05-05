@@ -1,5 +1,6 @@
 
 const allSideMenu = document.querySelectorAll('#sidebar .side-menu.top li a');
+let notificationBell=document.querySelector('.notification');
 
 
 allSideMenu.forEach(item=> {
@@ -95,6 +96,7 @@ cancelledItem.forEach(item=>{
 })
 
 //builds out the list
+let alerts=0;
 messageItem.forEach(element => {
     let index=messageItem.indexOf(element);
     messageBox.innerHTML+=
@@ -114,21 +116,35 @@ messageItem.forEach(element => {
     if(uniqueContact.includes(element.name))
         return;
     uniqueContact.push(element.name);
-
+    alerts++;
     followUpBox.innerHTML+=
     `
     <li class="completed">
         <p>Contacted ${element.name} ${daysBetween(element.date)} days ago</p>
-        <i class='bx bx-dots-vertical-rounded' value='${element.name}'></i>
+        <i class='bx bx-dots-vertical-rounded' value='${element.name}'>${element.name}</i>
     </li>`;
 });
 
+if(alerts)
+    notificationBell.innerHTML+=`<span class="num">${alerts}</span>`
 
 //adds funcitonality to the follow up delete buttons
 let deleteButtons=document.querySelectorAll('.bx-dots-vertical-rounded');
 deleteButtons=Array.from(deleteButtons);
 deleteButtons.forEach(but=>{
+    console.log(but.value)
     but.addEventListener('click', (e)=>{
-        console.log('clicked')
+        cancelledItem.push(but.innerHTML)
+        cancelledListJSON=JSON.stringify(cancelledItem);
+        localStorage.setItem('cancelledItem',cancelledListJSON);
+        window.location.reload();
     })
+})
+
+let refreshButton=document.querySelector('.bx-plus');
+refreshButton.addEventListener('click', (e)=>{
+    cancelledItem=[]
+    cancelledListJSON=JSON.stringify(cancelledItem);
+    localStorage.setItem('cancelledItem',cancelledListJSON);
+    window.location.reload();
 })
