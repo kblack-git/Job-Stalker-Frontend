@@ -1,17 +1,12 @@
-let nameBox=document.createElement("input");
-nameBox.setAttribute("id", "name-box");
+let nameBox=document.querySelector(".input-name");
 
-let recipientBox=document.createElement("input");
-recipientBox.setAttribute("id", "recipient-box");
+let methodBox=document.querySelector(".input-method");
 
-let contentBox=document.createElement("input");
-contentBox.setAttribute("id", "content-box");
+let contentBox=document.querySelector(".textarea-field");
 
-let dateBox=document.createElement("input");
-dateBox.setAttribute("id", "date-box");
+let dateBox=document.querySelector(".input-date");
 
-let submitButton=document.createElement("button");
-submitButton.setAttribute("id", "submit-button");
+let submitButton=document.querySelector(".submit-log");
 
 let messageJSON=localStorage.getItem('messageItem');
 let messageItem=JSON.parse(messageJSON);
@@ -21,7 +16,7 @@ messageItem?null:messageItem=[];
 submitButton.addEventListener('click',(e)=>{
     messageItem.push({
         name:nameBox.value,
-        recipient:recipientBox.value,
+        method:methodBox.value,
         message:contentBox.value,
         date:dateBox.value
     })
