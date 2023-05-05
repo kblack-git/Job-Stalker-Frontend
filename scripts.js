@@ -95,10 +95,20 @@ cancelledItem.forEach(item=>{
     uniqueContact.push(item);
 })
 
+let addUnderScore=(str)=>{
+    return str.replace(/ /g,"_");
+}
+
+let removeUnderScore=(str)=>{
+    return str.replace(/_/g," ");
+}
+
 //builds out the list
 let alerts=0;
 messageItem.forEach(element => {
     let index=messageItem.indexOf(element);
+    if(!element.name)
+        return;
     messageBox.innerHTML+=
     `
     <tr class="message-entry">
@@ -121,30 +131,30 @@ messageItem.forEach(element => {
     `
     <li class="completed">
         <p>Contacted ${element.name} ${daysBetween(element.date)} days ago</p>
-        <i class='bx bx-dots-vertical-rounded' value='${element.name}'>${element.name}</i>
+        <button class='bx' value=${addUnderScore(element.name)}>Delete</button>
     </li>`;
 });
 
-if(alerts)
-    notificationBell.innerHTML+=`<span class="num">${alerts}</span>`
+alerts?notificationBell.innerHTML+=`<span class="num">${alerts}</span>`:null;
+
+let updateCancelledList=()=>{
+    cancelledListJSON=JSON.stringify(cancelledItem);
+    localStorage.setItem('cancelledItem',cancelledListJSON);
+    window.location.reload();
+}
 
 //adds funcitonality to the follow up delete buttons
 let deleteButtons=document.querySelectorAll('.bx-dots-vertical-rounded');
 deleteButtons=Array.from(deleteButtons);
 deleteButtons.forEach(but=>{
-    console.log(but.value)
     but.addEventListener('click', (e)=>{
-        cancelledItem.push(but.innerHTML)
-        cancelledListJSON=JSON.stringify(cancelledItem);
-        localStorage.setItem('cancelledItem',cancelledListJSON);
-        window.location.reload();
+        cancelledItem.push(removeUnderScore(but.value))
+        updateCancelledList();
     })
 })
 
 let refreshButton=document.querySelector('.bx-plus');
 refreshButton.addEventListener('click', (e)=>{
     cancelledItem=[]
-    cancelledListJSON=JSON.stringify(cancelledItem);
-    localStorage.setItem('cancelledItem',cancelledListJSON);
-    window.location.reload();
+    updateCancelledList();
 })
