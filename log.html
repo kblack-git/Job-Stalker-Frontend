@@ -2,42 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="log.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <title>Login page</title>
 </head>
 <body>
+    <section class="side">
+        <img src="./images/logo.png" alt="">
+    </section>
 
-    <header>STALKER MUCH</header>
-    <div class="log">
-        <div class="form-box">
-            <div class="button-box">
-                <div id="btn"></div>
-                <button type="button" class="toggle-btn" onclick="login()">Log In</button>
-                <button type="button" class="toggle-btn" onclick="register()">Register</button>
-            </div>
-            <div class="social-icons">
-                <img src="">
-                <img src="">
-                <img src="">
-            </div>
-            <form id="login" class="input-group">
-                <input type="text" class="input-field" placeholder="User Id" required>
-                <input type="text" class="input-field" placeholder="Enter Password" required>
-                <input type="checkbox" class="check-box"><span>Remember Password</span>
-                <button type="submit" class="submit-btn">Log in</button>
-            </form>
-            <form id="register" class="input-group">
-                <input type="text" class="input-field" placeholder="User Id" required>
-                <input type="email" class="input-field" placeholder="Email Id" required>
-                <input type="text" class="input-field" placeholder="Enter Password" required>
-                <input type="checkbox" class="check-box"><span>I agree to the terms & conditions</span>
-                <button type="submit" class="submit-btn">Register</button>
+    <section class="main">
+        <div class="login-container">
+            <p class="title">Welcome</p>
+            <div class="separator"></div>
+            <p class="welcome-message">Please, provide login credential to proceed and have access to our services</p>
+
+            <form class="login-form">
+                <div class="form-control">
+                    <input type="text" placeholder="Username">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="form-control">
+                    <input type="password" placeholder="Password">
+                    <i class="fas fa-lock"></i>
+                </div>
+
+                <button class="submit">Login</button>
             </form>
         </div>
-    
-    </div>
-<script src="log.js"></script>
+    </section>
 </body>
 </html>
