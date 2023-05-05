@@ -81,6 +81,9 @@ let messageItem=JSON.parse(messageJSON);
 
 messageItem?null:messageItem=[];
 
+let messageCount=document.querySelector('.message-count');
+messageCount.innerHTML=messageItem.length-1;
+
 let daysBetween=(start, end)=>{
     let difference=(Date.now())-Date.parse(start);
     let diffDays=difference/(86400000)
@@ -131,7 +134,7 @@ messageItem.forEach(element => {
     `
     <li class="completed">
         <p>Contacted ${element.name} ${daysBetween(element.date)} days ago</p>
-        <button class='bx' value=${addUnderScore(element.name)}>Delete</button>
+        <button class='bx delete-but' value=${addUnderScore(element.name)}>Delete</button>
     </li>`;
 });
 
@@ -144,10 +147,11 @@ let updateCancelledList=()=>{
 }
 
 //adds funcitonality to the follow up delete buttons
-let deleteButtons=document.querySelectorAll('.bx-dots-vertical-rounded');
+let deleteButtons=document.querySelectorAll('.delete-but');
 deleteButtons=Array.from(deleteButtons);
 deleteButtons.forEach(but=>{
     but.addEventListener('click', (e)=>{
+        console.log('click')
         cancelledItem.push(removeUnderScore(but.value))
         updateCancelledList();
     })
