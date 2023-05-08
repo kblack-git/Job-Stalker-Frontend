@@ -123,7 +123,7 @@ fetch('https://job-stalker.onrender.com/messages')
                 <p>${element.name}</p>
             </td>
             <td>${element.method}</td>
-            <td><span title=${element.note}>${shortenedMessage}</span></td>
+            <td><span title='${element.note}'>${shortenedMessage}</span></td>
             <td><span class="Entry Date">${convertDate}</span></td>
         </tr>
         `;
