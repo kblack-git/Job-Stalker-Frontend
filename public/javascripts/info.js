@@ -19,7 +19,8 @@ submitButton.addEventListener('click',(e)=>{
     fetch('https://job-stalker.onrender.com/messages',{
         method: 'POST',
         headers: {
-            "Content-type": "application/json"
+            "Content-type": "application/json",
+            Authentication: 'Bearer {token}'           
         },
         body:JSON.stringify({ 
             name  :nameBox.value,

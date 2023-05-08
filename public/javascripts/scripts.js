@@ -70,7 +70,9 @@ switchMode.addEventListener('change', function () {
 
 let uniqueContact=[];
 
-fetch('https://job-stalker.onrender.com/messages')
+fetch('https://job-stalker.onrender.com/messages',{
+    headers:{Authentication: 'Bearer {token}' }
+})
 .then(res=>res.json())
 .then(data=>{
     let messageBox=document.querySelector('.message-box');

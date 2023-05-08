@@ -18,7 +18,36 @@ function login (){
     n.style.leftm= "450px";
     b.style.left = "0";
 }
+registerButton.addEventListener('click',e=>{
+    fetch(`https://job-stalker.onrender.com/auth/register`,
+    {
+        headers: {
+            "Content-type": "application/json"
+        },
+        body:JSON.stringify({
+            username:userName.value,
+            password:passWord.value
+        })
+    })
+    .then(res=>res.json)
+    .then(data=>{
+        console.log(data);
+    })
+})
 
-submitButton.addEventListener('click',(e)=>{
-    
+submitButton.addEventListener('click',e=>{
+    fetch(`https://job-stalker.onrender.com/auth/login`,
+    {
+        headers: {
+            "Content-type": "application/json"
+        },
+        body:JSON.stringify({
+            username:userName.value,
+            password:passWord.value
+        })
+    })
+    .then(res=>res.json)
+    .then(data=>{
+        console.log(data);
+    })
 })
