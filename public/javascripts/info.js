@@ -13,6 +13,8 @@ let messageItem=JSON.parse(messageJSON);
 
 messageItem?null:messageItem=[];
 
+let tokenData=localStorage.getItem('tokenItem');
+
 submitButton.addEventListener('click',(e)=>{
     console.log('added entry')
     let convertDate=dateBox.value.replace(/-/g,"");
@@ -20,7 +22,7 @@ submitButton.addEventListener('click',(e)=>{
         method: 'POST',
         headers: {
             "Content-type": "application/json",
-            Authentication: 'Bearer {token}'           
+            Authentication: tokenData          
         },
         body:JSON.stringify({ 
             name  :nameBox.value,

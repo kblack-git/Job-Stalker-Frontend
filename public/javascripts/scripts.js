@@ -70,8 +70,10 @@ switchMode.addEventListener('change', function () {
 
 let uniqueContact=[];
 
+let tokenData=localStorage.getItem('tokenItem');
+
 fetch('https://job-stalker.onrender.com/messages',{
-    headers:{Authentication: 'Bearer {token}' }
+    headers:{Authentication: tokenData }
 })
 .then(res=>res.json())
 .then(data=>{
