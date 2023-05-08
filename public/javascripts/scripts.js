@@ -109,8 +109,8 @@ let removeUnderScore=(str)=>{
 //builds out the list
 let alerts=0;
 messageItem.forEach(element => {
-    let shortenedMessage=element.message.substring(0, 40)
-    shortenedMessage==element.message?null:shortenedMessage+='...'
+    let shortenedMessage=element.note.substring(0, 40)
+    shortenedMessage==element.note?null:shortenedMessage+='...'
     let index=messageItem.indexOf(element);
     if(!element.name)
         return;
@@ -121,7 +121,7 @@ messageItem.forEach(element => {
             <p>${element.name}</p>
         </td>
         <td>${element.method}</td>
-        <td><span title=${element.message}>${shortenedMessage}</span></td>
+        <td><span title=${element.note}>${shortenedMessage}</span></td>
         <td><span class="Entry Date">${element.date}</span></td>
     </tr>
     `;

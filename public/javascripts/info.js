@@ -18,8 +18,8 @@ submitButton.addEventListener('click',(e)=>{
     messageItem.push({
         name:nameBox.value,
         method:methodBox.value,
-        message:contentBox.value,
-        date:dateBox.value
+        date:dateBox.value,
+        note:contentBox.value
     })
     messageJSON=JSON.stringify(messageItem);
     localStorage.setItem('messageItem',messageJSON);
