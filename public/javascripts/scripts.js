@@ -136,7 +136,9 @@ messageItem.forEach(element => {
     `
     <li class="completed">
         <p>Contacted ${element.name} ${daysBetween(element.date)} days ago</p>
-        <button class='bx delete-but' value=${addUnderScore(element.name)}>Delete</button>
+        <button type="delete" class='bx delete-btn' value=${addUnderScore(element.name)}>
+            <i class="fa fa-trash" aria-hidden="true"></i>
+        </button>
     </li>`;
 });
 
@@ -149,7 +151,7 @@ let updateCancelledList=()=>{
 }
 
 //adds funcitonality to the follow up delete buttons
-let deleteButtons=document.querySelectorAll('.delete-but');
+let deleteButtons=document.querySelectorAll('.delete-btn');
 deleteButtons=Array.from(deleteButtons);
 deleteButtons.forEach(but=>{
     but.addEventListener('click', (e)=>{
