@@ -15,9 +15,7 @@ messageItem?null:messageItem=[];
 
 submitButton.addEventListener('click',(e)=>{
     console.log('added entry')
-    console.log(dateBox.value);
     let convertDate=dateBox.value.replace(/-/g,"");
-    console.log(convertDate)
     fetch('https://job-stalker.onrender.com/messages',{
         method: 'POST',
         headers: {
