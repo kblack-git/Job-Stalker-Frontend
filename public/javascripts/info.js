@@ -15,12 +15,23 @@ messageItem?null:messageItem=[];
 
 submitButton.addEventListener('click',(e)=>{
     console.log('added entry')
-    messageItem.push({
-        name:nameBox.value,
-        method:methodBox.value,
-        date:dateBox.value,
-        note:contentBox.value
+    console.log(dateBox.value);
+    let convertDate=dateBox.value.replace(/-/g,"");
+    console.log(convertDate)
+    fetch('https://job-stalker.onrender.com/messages',{
+        method: 'POST',
+        headers: {
+            "Content-type": "application/json"
+        },
+        body:JSON.stringify({ 
+            name  :nameBox.value,
+            method:methodBox.value,
+            date  :convertDate,
+            note  :contentBox.value
+        })
     })
-    messageJSON=JSON.stringify(messageItem);
-    localStorage.setItem('messageItem',messageJSON);
+    .then(res=>res.json())
+    .then(data=>{
+        console.log(data)
+    });
 })

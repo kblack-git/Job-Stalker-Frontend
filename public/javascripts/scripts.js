@@ -70,99 +70,103 @@ switchMode.addEventListener('change', function () {
 
 let uniqueContact=[];
 
-let messageBox=document.querySelector('.message-box');
-messageBox.innerHTML='';
+fetch('https://job-stalker.onrender.com/messages')
+.then(res=>res.json())
+.then(data=>{
+    let messageBox=document.querySelector('.message-box');
+    messageBox.innerHTML='';
 
-let followUpBox=document.querySelector('.todo-list')
-followUpBox.innerHTML=''
+    let followUpBox=document.querySelector('.todo-list')
+    followUpBox.innerHTML=''
 
-let messageJSON=localStorage.getItem('messageItem');
-let messageItem=JSON.parse(messageJSON);
+    let messageCount=document.querySelector('.message-count');
+    messageCount.innerHTML=data.length;
 
-messageItem?null:messageItem=[];
+    let daysBetween=(start, end)=>{
+        let difference=(Date.now())-Date.parse(start);
+        let diffDays=difference/(86400000)
+        return Math.floor(diffDays);
+    }
 
-let messageCount=document.querySelector('.message-count');
-messageCount.innerHTML=messageItem.length;
+    let cancelledListJSON=localStorage.getItem('cancelledItem')
+    cancelledItem=JSON.parse(cancelledListJSON);
+    cancelledItem?null:cancelledItem=[];
 
-let daysBetween=(start, end)=>{
-    let difference=(Date.now())-Date.parse(start);
-    let diffDays=difference/(86400000)
-    return Math.floor(diffDays);
-}
+    cancelledItem.forEach(item=>{
+        uniqueContact.push(item);
+    })
 
-let cancelledListJSON=localStorage.getItem('cancelledItem')
-cancelledItem=JSON.parse(cancelledListJSON);
-cancelledItem?null:cancelledItem=[];
+    let addUnderScore=(str)=>{
+        return str.replace(/ /g,"_");
+    }
 
-cancelledItem.forEach(item=>{
-    uniqueContact.push(item);
-})
+    let removeUnderScore=(str)=>{
+        return str.replace(/_/g," ");
+    }
 
-let addUnderScore=(str)=>{
-    return str.replace(/ /g,"_");
-}
+    //builds out the list
+    let alerts=0;
+    console.log(data)
+    data.forEach(element => {
+        let convertDate=`${element.date}`;
+        convertDate=convertDate.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
 
-let removeUnderScore=(str)=>{
-    return str.replace(/_/g," ");
-}
+        let shortenedMessage=element.note.substring(0, 40)
+        shortenedMessage==element.note?null:shortenedMessage+='...'
+        let index=data.indexOf(element);
+        if(!element.name)
+            return;
+        messageBox.innerHTML+=
+        `
+        <tr class="message-entry">
+            <td>
+                <p>${element.name}</p>
+            </td>
+            <td>${element.method}</td>
+            <td><span title=${element.note}>${shortenedMessage}</span></td>
+            <td><span class="Entry Date">${convertDate}</span></td>
+        </tr>
+        `;
+        
+        if(daysBetween(convertDate)<7)
+            return;
+        if(uniqueContact.includes(element.name))
+            return;
+        uniqueContact.push(element.name);
+        alerts++;
+        followUpBox.innerHTML+=
+        `
+        <li class="completed">
+            <p>Contacted ${element.name} ${daysBetween(convertDate)} days ago</p>
+            <button type="delete" class='bx delete-btn' value=${addUnderScore(element.name)}>
+                <i class="fa fa-trash" aria-hidden="true"></i>
+            </button>
+        </li>`;
+    });
 
-//builds out the list
-let alerts=0;
-messageItem.forEach(element => {
-    let shortenedMessage=element.note.substring(0, 40)
-    shortenedMessage==element.note?null:shortenedMessage+='...'
-    let index=messageItem.indexOf(element);
-    if(!element.name)
-        return;
-    messageBox.innerHTML+=
-    `
-    <tr class="message-entry">
-		<td>
-            <p>${element.name}</p>
-        </td>
-        <td>${element.method}</td>
-        <td><span title=${element.note}>${shortenedMessage}</span></td>
-        <td><span class="Entry Date">${element.date}</span></td>
-    </tr>
-    `;
-    
-    if(daysBetween(element.date)<7)
-        return;
-    if(uniqueContact.includes(element.name))
-        return;
-    uniqueContact.push(element.name);
-    alerts++;
-    followUpBox.innerHTML+=
-    `
-    <li class="completed">
-        <p>Contacted ${element.name} ${daysBetween(element.date)} days ago</p>
-        <button type="delete" class='bx delete-btn' value=${addUnderScore(element.name)}>
-            <i class="fa fa-trash" aria-hidden="true"></i>
-        </button>
-    </li>`;
-});
+    alerts?notificationBell.innerHTML+=`<span class="num">${alerts}</span>`:null;
 
-alerts?notificationBell.innerHTML+=`<span class="num">${alerts}</span>`:null;
+    let updateCancelledList=()=>{
+        cancelledListJSON=JSON.stringify(cancelledItem);
+        localStorage.setItem('cancelledItem',cancelledListJSON);
+        window.location.reload();
+    }
 
-let updateCancelledList=()=>{
-    cancelledListJSON=JSON.stringify(cancelledItem);
-    localStorage.setItem('cancelledItem',cancelledListJSON);
-    window.location.reload();
-}
+    //adds funcitonality to the follow up delete buttons
+    let deleteButtons=document.querySelectorAll('.delete-btn');
+    deleteButtons=Array.from(deleteButtons);
+    deleteButtons.forEach(but=>{
+        but.addEventListener('click', (e)=>{
+            console.log('click')
+            cancelledItem.push(removeUnderScore(but.value))
+            updateCancelledList();
+        })
+    })
 
-//adds funcitonality to the follow up delete buttons
-let deleteButtons=document.querySelectorAll('.delete-btn');
-deleteButtons=Array.from(deleteButtons);
-deleteButtons.forEach(but=>{
-    but.addEventListener('click', (e)=>{
-        console.log('click')
-        cancelledItem.push(removeUnderScore(but.value))
+    let refreshButton=document.querySelector('.bx-plus');
+    refreshButton.addEventListener('click', (e)=>{
+        cancelledItem=[]
         updateCancelledList();
     })
 })
 
-let refreshButton=document.querySelector('.bx-plus');
-refreshButton.addEventListener('click', (e)=>{
-    cancelledItem=[]
-    updateCancelledList();
-})
