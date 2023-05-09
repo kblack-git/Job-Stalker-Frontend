@@ -116,15 +116,22 @@ fetch('https://job-stalker.onrender.com/messages',{
         return str.replace(/_/g," ");
     }
 
+    let shortenMsg=(message)=>{
+        let shortenedMessage=message.substring(0, 40)
+        shortenedMessage==message?null:shortenedMessage+='...'
+        return shortenedMessage
+    }
+
     //builds out the list
     let alerts=0;
+    let msgIdNum=0;
     console.log(data)
     data.forEach(element => {
         let convertDate=`${element.date}`;
         convertDate=convertDate.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
+        console.log(element.note)
 
-        let shortenedMessage=element.note.substring(0, 40)
-        shortenedMessage==element.note?null:shortenedMessage+='...'
+
         let index=data.indexOf(element);
         if(!element.name)
             return;
@@ -135,11 +142,15 @@ fetch('https://job-stalker.onrender.com/messages',{
                 <p>${element.name}</p>
             </td>
             <td>${element.method}</td>
-            <td><span title='${element.note}'>${shortenedMessage}</span></td>
+            <td>
+                <span title="${element.note}" class= 'msg_item'>
+                    ${shortenMsg(element.note)}
+                </span>
+            </td>
             <td><span class="Entry Date">${convertDate}</span></td>
         </tr>
         `;
-        
+        msgIdNum++;
         if(daysBetween(convertDate)<7)
             return;
         if(uniqueContact.includes(element.name))
@@ -180,5 +191,17 @@ fetch('https://job-stalker.onrender.com/messages',{
         cancelledItem=[]
         updateCancelledList();
     })
+
+    let messageAreas=document.querySelectorAll('.msg_item');
+    messageAreas=Array.from(messageAreas);
+    messageAreas.forEach(m=>{
+        m.addEventListener('click', e=>{
+            if(m.innerHTML==shortenMsg(m.title))
+                m.innerHTML=m.title;
+            else
+                m.innerHTML=shortenMsg(m.title)
+        })
+    })
+    
 })
 
