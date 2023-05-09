@@ -81,153 +81,153 @@ logOut.addEventListener('click', e=>{
     localStorage.setItem('tokenItem', null);
     localStorage.setItem('currentId', null);
 })
-if(!currentIdData)
-    return;
-fetch(`https://job-stalker.onrender.com/messages/${currentIdData}`,{
-    headers:{Authentication: tokenData.token}
-})
-.then(res=>res.json())
-.then(data=>{
 
-    let messageBox=document.querySelector('.message-box');
-    messageBox.innerHTML='';
-
-    let followUpBox=document.querySelector('.todo-list')
-    followUpBox.innerHTML=''
-
-    let messageCount=document.querySelector('.message-count');
-    messageCount.innerHTML=data.length;
-
-    let daysBetween=(start, end)=>{
-        let difference=(Date.now())-Date.parse(start);
-        let diffDays=difference/(86400000)
-        return Math.floor(diffDays);
-    }
-
-    let addUnderScore=(str)=>{
-        return str.replace(/ /g,"_");
-    }
-
-    let removeUnderScore=(str)=>{
-        return str.replace(/_/g," ");
-    }
-
-    let shorten=(item, limit)=>{
-        let shortenedItem=item.substring(0, limit?limit:40)
-        shortenedItem==item?null:shortenedItem+='...'
-        return shortenedItem
-    }
-
-    let expandContract=(element, limit)=>{
-        if(element.innerHTML==shorten(element.title, limit?limit:null))
-            element.innerHTML=element.title;
-        else
-            element.innerHTML=shorten(element.title, limit?limit:null)
-    }
-
-    let cancelledListJSON=localStorage.getItem('cancelledItem')
-    cancelledItem=JSON.parse(cancelledListJSON);
-    cancelledItem?null:cancelledItem=[];
-
-    cancelledItem.forEach(item=>{
-        uniqueContact.push(item);
+if(currentIdData){
+    fetch(`https://job-stalker.onrender.com/messages/${currentIdData}`,{
+        headers:{Authentication: tokenData.token}
     })
+    .then(res=>res.json())
+    .then(data=>{
 
-    //builds out the list
-    let alerts=0;
-    let msgIdNum=0;
-    data.sort((a,b)=>{
-        let da=new Date(a.date)
-        let db=new Date(b.date)
-        return da-db
-    })
-    console.log(data)
-    data.forEach(element => {
-        let convertDate=`${element.date}`;
-        convertDate=convertDate.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
-        console.log(element.note)
+        let messageBox=document.querySelector('.message-box');
+        messageBox.innerHTML='';
 
-        let index=data.indexOf(element);
-        if(!element.name)
-            return;
-        messageBox.innerHTML+=
-        `
-        <tr class="message-entry">
-            <td>
-                <p>${element.name}</p>
-            </td>
-            <td title="${element.method}" class='mtd_item'>
-                ${shorten(element.method, 10)}
-            </td>
-            <td>
-                <span title="${element.note}" class= 'msg_item'>
-                    ${shorten(element.note)}
-                </span>
-            </td>
-            <td><span class="Entry Date">${convertDate}</span></td>
-        </tr>
-        `;
-        msgIdNum++;
-        if(daysBetween(convertDate)<7)
-            return;
-        if(uniqueContact.includes(element.name))
-            return;
-        uniqueContact.push(element.name);
-        alerts++;
-        followUpBox.innerHTML+=
-        `
-        <li class="completed">
-            <p>Contacted ${element.name} ${daysBetween(convertDate)} days ago</p>
-            <button type="delete" class='bx delete-btn' value=${addUnderScore(element.name)}>
-                <i class="fa fa-trash" aria-hidden="true"></i>
-            </button>
-        </li>`;
-    });
+        let followUpBox=document.querySelector('.todo-list')
+        followUpBox.innerHTML=''
 
-    alerts?notificationBell.innerHTML+=`<span class="num">${alerts}</span>`:null;
+        let messageCount=document.querySelector('.message-count');
+        messageCount.innerHTML=data.length;
 
-    let updateCancelledList=()=>{
-        cancelledListJSON=JSON.stringify(cancelledItem);
-        localStorage.setItem('cancelledItem',cancelledListJSON);
-        window.location.reload();
-    }
+        let daysBetween=(start, end)=>{
+            let difference=(Date.now())-Date.parse(start);
+            let diffDays=difference/(86400000)
+            return Math.floor(diffDays);
+        }
 
-    //adds funcitonality to the follow up delete buttons
-    let deleteButtons=document.querySelectorAll('.delete-btn');
-    deleteButtons=Array.from(deleteButtons);
-    deleteButtons.forEach(but=>{
-        but.addEventListener('click', (e)=>{
-            console.log('click')
-            cancelledItem.push(removeUnderScore(but.value))
+        let addUnderScore=(str)=>{
+            return str.replace(/ /g,"_");
+        }
+
+        let removeUnderScore=(str)=>{
+            return str.replace(/_/g," ");
+        }
+
+        let shorten=(item, limit)=>{
+            let shortenedItem=item.substring(0, limit?limit:40)
+            shortenedItem==item?null:shortenedItem+='...'
+            return shortenedItem
+        }
+
+        let expandContract=(element, limit)=>{
+            if(element.innerHTML==shorten(element.title, limit?limit:null))
+                element.innerHTML=element.title;
+            else
+                element.innerHTML=shorten(element.title, limit?limit:null)
+        }
+
+        let cancelledListJSON=localStorage.getItem('cancelledItem')
+        cancelledItem=JSON.parse(cancelledListJSON);
+        cancelledItem?null:cancelledItem=[];
+
+        cancelledItem.forEach(item=>{
+            uniqueContact.push(item);
+        })
+
+        //builds out the list
+        let alerts=0;
+        let msgIdNum=0;
+        data.sort((a,b)=>{
+            let da=new Date(a.date)
+            let db=new Date(b.date)
+            return da-db
+        })
+        console.log(data)
+        data.forEach(element => {
+            let convertDate=`${element.date}`;
+            convertDate=convertDate.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
+            console.log(element.note)
+
+            let index=data.indexOf(element);
+            if(!element.name)
+                return;
+            messageBox.innerHTML+=
+            `
+            <tr class="message-entry">
+                <td>
+                    <p>${element.name}</p>
+                </td>
+                <td title="${element.method}" class='mtd_item'>
+                    ${shorten(element.method, 10)}
+                </td>
+                <td>
+                    <span title="${element.note}" class= 'msg_item'>
+                        ${shorten(element.note)}
+                    </span>
+                </td>
+                <td><span class="Entry Date">${convertDate}</span></td>
+            </tr>
+            `;
+            msgIdNum++;
+            if(daysBetween(convertDate)<7)
+                return;
+            if(uniqueContact.includes(element.name))
+                return;
+            uniqueContact.push(element.name);
+            alerts++;
+            followUpBox.innerHTML+=
+            `
+            <li class="completed">
+                <p>Contacted ${element.name} ${daysBetween(convertDate)} days ago</p>
+                <button type="delete" class='bx delete-btn' value=${addUnderScore(element.name)}>
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+            </li>`;
+        });
+
+        alerts?notificationBell.innerHTML+=`<span class="num">${alerts}</span>`:null;
+
+        let updateCancelledList=()=>{
+            cancelledListJSON=JSON.stringify(cancelledItem);
+            localStorage.setItem('cancelledItem',cancelledListJSON);
+            window.location.reload();
+        }
+
+        //adds funcitonality to the follow up delete buttons
+        let deleteButtons=document.querySelectorAll('.delete-btn');
+        deleteButtons=Array.from(deleteButtons);
+        deleteButtons.forEach(but=>{
+            but.addEventListener('click', (e)=>{
+                console.log('click')
+                cancelledItem.push(removeUnderScore(but.value))
+                updateCancelledList();
+            })
+        })
+
+        let refreshButton=document.querySelector('.bx-plus');
+        refreshButton.addEventListener('click', (e)=>{
+            cancelledItem=[]
             updateCancelledList();
         })
-    })
 
-    let refreshButton=document.querySelector('.bx-plus');
-    refreshButton.addEventListener('click', (e)=>{
-        cancelledItem=[]
-        updateCancelledList();
-    })
-
-    let messageAreas=document.querySelectorAll('.msg_item');
-    messageAreas=Array.from(messageAreas);
-    messageAreas.forEach(m=>{
-        m.addEventListener('click', e=>{
-            expandContract(m)
+        let messageAreas=document.querySelectorAll('.msg_item');
+        messageAreas=Array.from(messageAreas);
+        messageAreas.forEach(m=>{
+            m.addEventListener('click', e=>{
+                expandContract(m)
+            })
         })
-    })
 
-    let methodAreas=document.querySelectorAll('.mtd_item');
-    methodAreas=Array.from(methodAreas);
-    methodAreas.forEach(m=>{
-        m.addEventListener('click', e=>{
-            expandContract(m, 10)
+        let methodAreas=document.querySelectorAll('.mtd_item');
+        methodAreas=Array.from(methodAreas);
+        methodAreas.forEach(m=>{
+            m.addEventListener('click', e=>{
+                expandContract(m, 10)
+            })
         })
+        
+        let loginArea=document.querySelector('.nav-link');
+        let userData=localStorage.getItem('userItem');
+        console.log(userData)
+        userData?loginArea.innerHTML=userData:null;
     })
-    
-    let loginArea=document.querySelector('.nav-link');
-    let userData=localStorage.getItem('userItem');
-    console.log(userData)
-    userData?loginArea.innerHTML=userData:null;
-})
-
+}
