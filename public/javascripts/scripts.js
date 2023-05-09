@@ -28,25 +28,25 @@ const searchButton = document.querySelector('#content nav form .form-input butto
 const searchButtonIcon = document.querySelector('#content nav form .form-input button .bx');
 const searchForm = document.querySelector('#content nav form');
 
-searchButton.addEventListener('click', function (e) {
-	if(window.innerWidth < 576) {
-		e.preventDefault();
-		searchForm.classList.toggle('show');
-		if(searchForm.classList.contains('show')) {
-			searchButtonIcon.classList.replace('bx-search', 'bx-x');
-		} else {
-			searchButtonIcon.classList.replace('bx-x', 'bx-search');
-		}
-	}
-})
+// searchButton.addEventListener('click', function (e) {
+// 	if(window.innerWidth < 576) {
+// 		e.preventDefault();
+// 		searchForm.classList.toggle('show');
+// 		if(searchForm.classList.contains('show')) {
+// 			searchButtonIcon.classList.replace('bx-search', 'bx-x');
+// 		} else {
+// 			searchButtonIcon.classList.replace('bx-x', 'bx-search');
+// 		}
+// 	}
+// })
 
 
-if(window.innerWidth < 768) {
-	sidebar.classList.add('hide');
-} else if(window.innerWidth > 576) {
-	searchButtonIcon.classList.replace('bx-x', 'bx-search');
-	searchForm.classList.remove('show');
-}
+// if(window.innerWidth < 768) {
+// 	sidebar.classList.add('hide');
+// } else if(window.innerWidth > 576) {
+// 	searchButtonIcon.classList.replace('bx-x', 'bx-search');
+// 	searchForm.classList.remove('show');
+// }
 
 
 window.addEventListener('resize', function () {
@@ -141,6 +141,7 @@ if(currentIdData){
             let db=new Date(b.date)
             return da-db
         })
+        let postThing=document.querySelector('.dynamic-post')
         console.log(data)
         data.forEach(element => {
             let convertDate=`${element.date}`;
@@ -168,6 +169,7 @@ if(currentIdData){
             </tr>
             `;
             msgIdNum++;
+            
             if(daysBetween(convertDate)<7)
                 return;
             if(uniqueContact.includes(element.name))
@@ -183,6 +185,9 @@ if(currentIdData){
                 </button>
             </li>`;
         });
+
+        if(msgIdNum>1)
+                postThing.innerHTML+='s'
 
         alerts?notificationBell.innerHTML+=`<span class="num">${alerts}</span>`:null;
 
@@ -229,5 +234,7 @@ if(currentIdData){
         let userData=localStorage.getItem('userItem');
         console.log(userData)
         userData?loginArea.innerHTML=userData:null;
+
     })
+
 }
