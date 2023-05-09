@@ -16,7 +16,15 @@ messageItem?null:messageItem=[];
 let currentIdData=localStorage.getItem('currentId');
 let tokenData=localStorage.getItem('tokenItem');
 let now=new Date();
-let nowFull=`${now.getFullYear()}${((now.getMonth()+1).toString()).length<2?0:null}${(now.getMonth()+1)}${((now.getDate()).toString()).length<2?0:null}${now.getDate()}`
+
+let addZero=(item)=>{
+    let temp=item.toString();
+    if(temp.length>1)
+        return temp;
+    return `0${temp}`
+}
+
+let nowFull=`${now.getFullYear()}${addZero(now.getMonth()+1)}${addZero(now.getDate())}`
 console.log(nowFull)
 
 
@@ -41,5 +49,6 @@ submitButton.addEventListener('click',(e)=>{
     .then(res=>res.json())
     .then(data=>{
         console.log(data)
+        window.location='https://job-stalker-rp0m.onrender.com/'
     });
 })
