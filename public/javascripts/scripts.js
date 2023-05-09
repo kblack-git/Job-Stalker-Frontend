@@ -81,8 +81,9 @@ logOut.addEventListener('click', e=>{
     localStorage.setItem('tokenItem', null);
     localStorage.setItem('currentId', null);
 })
-
-fetch(`https://job-stalker.onrender.com/messages/${currentIdData?currentIdData:null}`,{
+if(!currentIdData)
+    return;
+fetch(`https://job-stalker.onrender.com/messages/${currentIdData}`,{
     headers:{Authentication: tokenData.token}
 })
 .then(res=>res.json())
@@ -156,7 +157,8 @@ fetch(`https://job-stalker.onrender.com/messages/${currentIdData?currentIdData:n
                 <p>${element.name}</p>
             </td>
             <td title="${element.method}" class='mtd_item'>
-                ${shorten(element.method, 10)}</td>
+                ${shorten(element.method, 10)}
+            </td>
             <td>
                 <span title="${element.note}" class= 'msg_item'>
                     ${shorten(element.note)}
