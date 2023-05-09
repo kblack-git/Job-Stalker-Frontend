@@ -73,19 +73,21 @@ switchMode.addEventListener('change', function () {
 let uniqueContact=[];
 
 let tokenData=localStorage.getItem('tokenItem');
+let currentIdData=localStorage.getItem('currentId');
 
 let logOut=document.querySelector('.logout');
 logOut.addEventListener('click', e=>{
-    localStorage.setItem('userItem', null);
+    localStorage.setItem('userItem',  null);
     localStorage.setItem('tokenItem', null);
     localStorage.setItem('currentId', null);
 })
 
-fetch('https://job-stalker.onrender.com/messages',{
-    headers:{Authentication: tokenData.token }
+fetch(`https://job-stalker.onrender.com/messages/${currentIdData?currentIdData:null}`,{
+    headers:{Authentication: tokenData.token}
 })
 .then(res=>res.json())
 .then(data=>{
+
     let messageBox=document.querySelector('.message-box');
     messageBox.innerHTML='';
 
