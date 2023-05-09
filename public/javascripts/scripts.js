@@ -76,6 +76,7 @@ let tokenData=localStorage.getItem('tokenItem');
 
 let logOut=document.querySelector('.logout');
 logOut.addEventListener('click', e=>{
+    localStorage.setItem('userItem', null);
     localStorage.setItem('tokenItem', null);
     localStorage.setItem('currentId', null);
 })
@@ -132,12 +133,16 @@ fetch('https://job-stalker.onrender.com/messages',{
     //builds out the list
     let alerts=0;
     let msgIdNum=0;
+    data.sort((a,b)=>{
+        let da=new Date(a.date)
+        let db=new Date(b.date)
+        return da-db
+    })
     console.log(data)
     data.forEach(element => {
         let convertDate=`${element.date}`;
         convertDate=convertDate.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
         console.log(element.note)
-
 
         let index=data.indexOf(element);
         if(!element.name)
@@ -214,6 +219,11 @@ fetch('https://job-stalker.onrender.com/messages',{
         m.addEventListener('click', e=>{
             expandContract(m, 10)
         })
-    })    
+    })
+    
+    let loginArea=document.querySelector('.nav-link');
+    let userData=localStorage.getItem('userItem');
+    console.log(userData)
+    userData?loginArea.innerHTML=userData:null;
 })
 

@@ -55,6 +55,7 @@ submitButton.addEventListener('click',async e=>{
     .then(res=>res.json())
     .then(data=>{
         console.log(`logged in with id: ${data.myUser}`)
+        localStorage.setItem('userItem',userName.value)
         localStorage.setItem('currentId',data.myUser);
         localStorage.setItem('tokenItem',data.token);
         window.location='https://job-stalker-rp0m.onrender.com/'
