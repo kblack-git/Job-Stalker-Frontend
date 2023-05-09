@@ -5,7 +5,7 @@
 
 body{
     background: url(../images/17056599.jpg);
-    background-repeat: no-repeat;
+    
     background-size: cover;
     font-family: sans-serif;
 }
@@ -43,7 +43,7 @@ form{
 }
 
 .btn{
-    border-radius: 20px;
+    border-radius: 5px;
     color: rgb(255, 254, 254);
     margin-top: 18px;
     padding: 10px;
@@ -52,5 +52,34 @@ form{
     border: none;
     cursor: pointer;
 }
+.btn2{
+    border-radius: 5px;
+    color: rgb(255, 254, 254);
+    margin-top: 1px;
+    padding: 10px;
+    background-color: rgb(7, 7, 7);
+    font-size: 12px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    right: -400px;
+    top:-73px;
 
+}
 
+@media (max-width: 780px) {
+
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: url(../images/17056599.jpg);
+        background: scroll;
+    }
+    .side {
+        display: none;
+    }
+    .post-box{
+        top: 559px;
+    }
+}
