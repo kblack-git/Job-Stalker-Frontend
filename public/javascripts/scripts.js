@@ -96,7 +96,7 @@ if(currentIdData){
         followUpBox.innerHTML=''
 
         let messageCount=document.querySelector('.message-count');
-        messageCount.innerHTML=data.length;
+        messageCount.innerHTML=data.length?data.length:0
 
         let daysBetween=(start, end)=>{
             let difference=(Date.now())-Date.parse(start);
