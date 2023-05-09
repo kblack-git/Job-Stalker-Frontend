@@ -15,10 +15,15 @@ messageItem?null:messageItem=[];
 
 let currentIdData=localStorage.getItem('currentId');
 let tokenData=localStorage.getItem('tokenItem');
+let now=new Date();
+let nowFull=`${now.getFullYear()}${((now.getMonth()+1).toString()).length<2?0:null}${(now.getMonth()+1)}${((now.getDate()).toString()).length<2?0:null}${now.getDate()}`
+console.log(nowFull)
+
 
 submitButton.addEventListener('click',(e)=>{
     console.log('added entry')
-    let convertDate=dateBox.value.replace(/-/g,"");
+    
+    let convertDate=dateBox.value?dateBox.value.replace(/-/g,""):nowFull;
     fetch('https://job-stalker.onrender.com/messages',{
         method: 'POST',
         headers: {

@@ -132,6 +132,7 @@ if(currentIdData){
         cancelledItem.forEach(item=>{
             uniqueContact.push(item);
         })
+        
 
         //builds out the list
         let alerts=0;
