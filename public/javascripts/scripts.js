@@ -187,8 +187,9 @@ if(currentIdData){
             </li>`;
         });
 
-        if(msgIdNum>1)
-                postThing.innerHTML+='s'
+        if(msgIdNum==1)
+            messageCount.innerHTML='Post'
+            
 
         alerts?notificationBell.innerHTML+=`<span class="num">${alerts}</span>`:null;
 
