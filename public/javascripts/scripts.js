@@ -68,9 +68,17 @@ switchMode.addEventListener('change', function () {
 })
 
 
+
+
 let uniqueContact=[];
 
 let tokenData=localStorage.getItem('tokenItem');
+
+let logOut=document.querySelector('.logout');
+logOut.addEventListener('click', e=>{
+    localStorage.setItem('tokenItem', null);
+    localStorage.setItem('currentId', null);
+})
 
 fetch('https://job-stalker.onrender.com/messages',{
     headers:{Authentication: tokenData.token }
