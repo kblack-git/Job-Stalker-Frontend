@@ -22,12 +22,15 @@ section {
 section.side {
     background: url(./images/background.avif) no-repeat;
     background-size: 100% 102%;
+    background: linear-gradient( #faf8f8, #5d0101);
 }
 
 .side img {
     width: 50%;
     max-width: 50%;
 }
+
+
 
 .login-container {
     max-width: 450px;
@@ -82,8 +85,8 @@ button {
 
 input {
     width: 100%;
-    background: #e6e6e6;
-    color: #333;
+    background: #850000;
+    color: #333333;
     letter-spacing: 0.5px;
     padding: 14px 64px;
 }
@@ -93,7 +96,7 @@ input ~ i {
     left: 32px;
     top: 50%;
     transform: translateY(-50%);
-    color: #888;
+    color: #fcf9f9;
     transition: color   0.4s;
 }
 
@@ -116,6 +119,8 @@ button.submit {
 button.submit:hover {
     opacity: 0.9;
 }
+
+
 
 /* ----  Responsiveness   ----  */
 @media (max-width: 780px) {
