@@ -211,10 +211,9 @@ fetch('https://job-stalker.onrender.com/messages',{
     let methodAreas=document.querySelectorAll('.mtd_item');
     methodAreas=Array.from(methodAreas);
     methodAreas.forEach(m=>{
-        mm.addEventListener('click', e=>{
+        m.addEventListener('click', e=>{
             expandContract(m, 10)
         })
-    })
-    
+    })    
 })
 
