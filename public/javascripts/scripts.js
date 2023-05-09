@@ -73,7 +73,7 @@ let uniqueContact=[];
 let tokenData=localStorage.getItem('tokenItem');
 
 fetch('https://job-stalker.onrender.com/messages',{
-    headers:{Authentication: tokenData }
+    headers:{Authentication: tokenData.token }
 })
 .then(res=>res.json())
 .then(data=>{

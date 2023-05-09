@@ -18,7 +18,9 @@ function login (){
     n.style.leftm= "450px";
     b.style.left = "0";
 }
-registerButton.addEventListener('click',e=>{
+
+
+registerButton.addEventListener('click',async e=>{
     e.preventDefault();
     fetch(`https://job-stalker.onrender.com/auth/register`,
     {
@@ -33,12 +35,11 @@ registerButton.addEventListener('click',e=>{
     })
     .then(res=>res.json())
     .then(data=>{
-        console.log(data);
-        
+        console.log(data);     
     })
 })
 
-submitButton.addEventListener('click',(e)=>{
+submitButton.addEventListener('click',async e=>{
     e.preventDefault();
     fetch(`https://job-stalker.onrender.com/auth/login`,
     {
@@ -53,7 +54,8 @@ submitButton.addEventListener('click',(e)=>{
     })
     .then(res=>res.json())
     .then(data=>{
-        console.log(data);
+        console.log(`logged in with id: ${data.myUser}`)
+        localStorage.setItem('currentId',data.myUser);
         localStorage.setItem('tokenItem',data.token);
         window.location='https://job-stalker-rp0m.onrender.com/'
     })

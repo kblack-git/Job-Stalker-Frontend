@@ -13,6 +13,7 @@ let messageItem=JSON.parse(messageJSON);
 
 messageItem?null:messageItem=[];
 
+let currentIdData=localStorage.getItem('currentId');
 let tokenData=localStorage.getItem('tokenItem');
 
 submitButton.addEventListener('click',(e)=>{
@@ -22,13 +23,14 @@ submitButton.addEventListener('click',(e)=>{
         method: 'POST',
         headers: {
             "Content-type": "application/json",
-            Authentication: tokenData          
+            Authentication: tokenData.token          
         },
         body:JSON.stringify({ 
-            name  :nameBox.value,
-            method:methodBox.value,
-            date  :convertDate,
-            note  :contentBox.value
+            name    :nameBox.value,
+            method  :methodBox.value,
+            date    :convertDate,
+            note    :contentBox.value,
+            user_id :currentIdData
         })
     })
     .then(res=>res.json())
