@@ -100,14 +100,6 @@ fetch('https://job-stalker.onrender.com/messages',{
         return Math.floor(diffDays);
     }
 
-    let cancelledListJSON=localStorage.getItem('cancelledItem')
-    cancelledItem=JSON.parse(cancelledListJSON);
-    cancelledItem?null:cancelledItem=[];
-
-    cancelledItem.forEach(item=>{
-        uniqueContact.push(item);
-    })
-
     let addUnderScore=(str)=>{
         return str.replace(/ /g,"_");
     }
@@ -116,11 +108,26 @@ fetch('https://job-stalker.onrender.com/messages',{
         return str.replace(/_/g," ");
     }
 
-    let shortenMsg=(message)=>{
-        let shortenedMessage=message.substring(0, 40)
-        shortenedMessage==message?null:shortenedMessage+='...'
-        return shortenedMessage
+    let shorten=(item, limit)=>{
+        let shortenedItem=item.substring(0, limit?limit:40)
+        shortenedItem==item?null:shortenedItem+='...'
+        return shortenedItem
     }
+
+    let expandContract=(element, limit)=>{
+        if(element.innerHTML==shorten(element.title, limit?limit:null))
+            element.innerHTML=element.title;
+        else
+            element.innerHTML=shorten(element.title, limit?limit:null)
+    }
+
+    let cancelledListJSON=localStorage.getItem('cancelledItem')
+    cancelledItem=JSON.parse(cancelledListJSON);
+    cancelledItem?null:cancelledItem=[];
+
+    cancelledItem.forEach(item=>{
+        uniqueContact.push(item);
+    })
 
     //builds out the list
     let alerts=0;
@@ -141,10 +148,11 @@ fetch('https://job-stalker.onrender.com/messages',{
             <td>
                 <p>${element.name}</p>
             </td>
-            <td>${element.method}</td>
+            <td title="${element.method}" class='mtd_item'>
+                ${shorten(element.method, 10)}</td>
             <td>
                 <span title="${element.note}" class= 'msg_item'>
-                    ${shortenMsg(element.note)}
+                    ${shorten(element.note)}
                 </span>
             </td>
             <td><span class="Entry Date">${convertDate}</span></td>
@@ -196,10 +204,15 @@ fetch('https://job-stalker.onrender.com/messages',{
     messageAreas=Array.from(messageAreas);
     messageAreas.forEach(m=>{
         m.addEventListener('click', e=>{
-            if(m.innerHTML==shortenMsg(m.title))
-                m.innerHTML=m.title;
-            else
-                m.innerHTML=shortenMsg(m.title)
+            expandContract(m)
+        })
+    })
+
+    let methodAreas=document.querySelectorAll('.mtd_item');
+    methodAreas=Array.from(methodAreas);
+    methodAreas.forEach(m=>{
+        mm.addEventListener('click', e=>{
+            expandContract(m, 10)
         })
     })
     
