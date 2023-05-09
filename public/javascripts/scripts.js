@@ -139,7 +139,7 @@ if(currentIdData){
         data.sort((a,b)=>{
             let da=new Date(a.date)
             let db=new Date(b.date)
-            return da-db
+            return db-da
         })
         let postThing=document.querySelector('.dynamic-post')
         console.log(data)
